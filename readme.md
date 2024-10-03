@@ -78,11 +78,11 @@ We welcome contributions to enhance this tool’s features or make it more user-
 
 ## Contact Information
 If you have questions or suggestions, feel free to reach out:
-GitHub: MarcCode2003
-Email: marcsamuelcanales.26@gmail.com
+- GitHub: MarcCode2003
+- Email: marcsamuelcanales.26@gmail.com
 
 Additional Notes:
-- Enjoy the process of cleaning up your following list!
+- That's all! Enjoy the process of cleaning up your following list!
 - I will continue to improve this tool in the future, so stay tuned for updates.
 - I aim to expand support to other social media platforms, making this tracker more versatile.
 - Since setting this up can be complex for those unfamiliar with programming tools like VSCode, I will focus on simplifying the process to make it more user-friendly.
