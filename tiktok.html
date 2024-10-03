@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Unfollowers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4; /* Light background color */
+            color: #333; /* Dark text color */
+            animation: fadeIn 1s ease-in-out;
+        }
+        h1 {
+            color: #69c9d0; /* TikTok color */
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        button {
+            display: block;
+            background-color: #69c9d0; /* TikTok color */
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 18px;
+            margin: 0 auto 10px auto; /* Add margin below button */
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            background-color: #5bb5b0; /* Darker shade on hover */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px; /* Add margin below input */
+        }
+        #result {
+            margin-top: 30px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.5s forwards ease;
+        }
+        h2 {
+            color: #69c9d0; /* TikTok color */
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px 0; /* Add padding to list items */
+            border-bottom: 1px solid #ddd; /* Add a subtle divider between items */
+            transition: background-color 0.3s ease;
+        }
+        li:hover {
+            background-color: #f9f9f9; /* Light hover effect on list items */
+        }
+        a {
+            text-decoration: none;
+            color: #0077cc; /* Link color */
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            text-decoration: underline; /* Underline on hover */
+            color: #005999; /* Darker shade on hover */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>TikTok Unfollowers</h1>
+    <input type="text" id="searchInput" placeholder="Search for unfollowers..." onkeyup="filterUnfollowers()">
+    <button onclick="showUnfollowers()">Show Unfollowers</button>
+    <div id="result"></div>
+
+    <script>
+        let unfollowers = []; // Store unfollowers for search functionality
+
+        async function loadUsernames(file) {
+            try {
+                const response = await fetch(file);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const text = await response.text();
+                // Extract usernames from the text file
+                const lines = text.split('\n');
+                const usernames = lines
+                    .filter(line => line.startsWith('Username:')) // Filter lines that contain usernames
+                    .map(line => line.replace('Username:', '').trim()); // Extract and trim usernames
+                return usernames;
+            } catch (error) {
+                console.error(`Failed to load usernames from ${file}:`, error);
+                alert(`Failed to load usernames from ${file}. Please check the file.`);
+                return [];
+            }
+        }
+
+        async function showUnfollowers() {
+            const followers = await loadUsernames('Follower.txt'); // Update with your file name
+            const following = await loadUsernames('Following.txt'); // Update with your file name
+
+            const followersSet = new Set(followers);
+            unfollowers = following.filter(user => !followersSet.has(user)); // Store unfollowers for search
+
+            displayUnfollowers(); // Display unfollowers initially
+        }
+
+        function displayUnfollowers() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<h2>People You Follow Who Don\'t Follow You Back:</h2>';
+            const ul = document.createElement('ul');
+            unfollowers.forEach(user => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `https://www.tiktok.com/@${user}/`; // TikTok user link
+                a.target = "_blank"; // Open link in a new tab
+                a.textContent = user;
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+            resultDiv.appendChild(ul);
+        }
+
+        function filterUnfollowers() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const filteredUnfollowers = unfollowers.filter(user => user.toLowerCase().includes(input));
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<h2>People You Follow Who Don\'t Follow You Back:</h2>'; // Reset header
+            const ul = document.createElement('ul');
+
+            filteredUnfollowers.forEach(user => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `https://www.tiktok.com/@${user}/`; // TikTok user link
+                a.target = "_blank"; // Open link in a new tab
+                a.textContent = user;
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+
+            resultDiv.appendChild(ul);
+        }
+    </script>
+</body>
+</html>
