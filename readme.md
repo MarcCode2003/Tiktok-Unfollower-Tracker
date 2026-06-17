@@ -69,10 +69,10 @@ Currently as of Oct. 2024 you only need (follower.txt and following.txt).
 This tool was built to provide clarity, not to promote obsessive behavior or social anxiety. Users should respect others’ decisions to follow or unfollow and avoid taking these changes personally. Use this tool primarily for personal management, not for retaliation or creating conflict.
 
 ## Disclaimer
-Personal Use Only: This tool is meant for personal use to manage your TikTok connections.
-Respect Privacy: Always download your data from TikTok’s official platform and avoid third-party apps or sites that request your login information.
-No Automated Actions: This tool does not automate following, unfollowing, or any other actions on TikTok.
-No Affiliation with TikTok: This project is not associated with TikTok or its parent company.
+- Personal Use Only: This tool is meant for personal use to manage your TikTok connections.
+- Respect Privacy: Always download your data from TikTok’s official platform and avoid third-party apps or sites that request your login information.
+- No Automated Actions: This tool does not automate following, unfollowing, or any other actions on TikTok.
+- No Affiliation with TikTok: This project is not associated with TikTok or its parent company.
 Contribution Guidelines
 We welcome contributions to enhance this tool’s features or make it more user-friendly. Feel free to fork the repository and submit a pull request.
 
